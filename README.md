@@ -1,6 +1,6 @@
 # Dev Traefik proxy for local development
 
-```
+```bash
 docker network create web
 docker-compose up -d
 ```
