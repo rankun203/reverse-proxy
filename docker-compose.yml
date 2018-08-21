@@ -1,0 +1,28 @@
+version: '3.6'
+networks:
+  # docker network create web
+  web:
+    external: true
+services:
+  server:
+    image: traefik
+    container_name: traefik
+    # web.lodestreams.com
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - web
+      - default
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.toml:/etc/traefik/traefik.toml
+      - ./acme.json:/etc/traefik/acme.json
+    labels:
+      - "traefik.backend=web"
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.web.frontend.rule=Host:traefik.localhost"
+      - "traefik.web.port=8080"
+      - "traefik.web.protocol=http"
+    restart: always
