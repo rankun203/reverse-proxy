@@ -42,7 +42,7 @@ defaultEntryPoints = ["http", "https"]
     # entryPoint = "https"
   [entryPoints.https]
   address = ":443"
-  # [entryPoints.https.tls]
+  [entryPoints.https.tls]
   # https://github.com/containous/traefik/issues/2833
   [entryPoints.traefik]
   address = ":8080"
