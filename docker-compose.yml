@@ -7,14 +7,13 @@ networks:
     external: true
 services:
   traefik:
-    image: traefik
+    image: traefik:alpine
     container_name: traefik
     restart: always
     # web.lodestreams.com
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"
     networks:
       - web
       - default
