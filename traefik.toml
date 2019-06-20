@@ -151,17 +151,57 @@ format = "common"
 # endpoint = "tcp://10.10.10.10:2375"
 endpoint = "unix:///var/run/docker.sock"
 
+# Enable watch docker changes.
+#
+# Optional
+#
+watch = true
+
+# Override default configuration template.
+# For advanced users :)
+#
+# Optional
+#
+# filename = "docker.tmpl"
+
+# Override template version
+# For advanced users :)
+#
+# Optional
+# - "1": previous template version (must be used only with older custom templates, see "filename")
+# - "2": current template version (must be used to force template version when "filename" is used)
+#
+# templateVersion = 2
+
+# Expose containers by default in Traefik.
+# If set to false, containers that don't have `traefik.enable=true` will be ignored.
+#
+# Optional
+# Default: true
+#
+exposedByDefault = true
+
+# Use the IP address from the binded port instead of the inner network one.
+#
+# In case no IP address is attached to the binded port (or in case 
+# there is no bind), the inner network one will be used as a fallback.     
+#
+# Optional
+# Default: false
+#
+usebindportip = true
+
+# Define a default docker network to use for connections to all containers.
+# Can be overridden by the traefik.docker.network label.
+#
+# Optional
+#
+network = "public"
+
 # Default domain used.
 # Can be overridden by setting the "traefik.domain" label on a container.
 # KR: once enabled, it will try to set domains for every container
 # Optional
 # Default: ""
 #
-# domain = "web.lodestreams.com"
-
-# Expose containers by default in traefik
-#
-# Optional
-# Default: true
-#
-# exposedByDefault = true
+# domain = "web.xx"

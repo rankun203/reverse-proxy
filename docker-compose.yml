@@ -2,20 +2,20 @@ version: '3.6'
 volumes: 
   portainer_data: {}
 networks:
-  # docker network create web
-  web:
+  # docker network create public
+  public:
     external: true
 services:
   traefik:
     image: traefik:alpine
     container_name: traefik
     restart: always
-    # web.lodestreams.com
+    # public.lodestreams.com
     ports:
       - "80:80"
       - "443:443"
     networks:
-      - web
+      - public
       - default
     volumes: 
       - /var/run/docker.sock:/var/run/docker.sock
@@ -23,9 +23,9 @@ services:
       - ./acme.json:/etc/traefik/acme.json
     labels:
       - "traefik.enable=true"
-      - "traefik.web.frontend.rule=Host:traefik.localhost"
-      - "traefik.web.port=8080"
-      - "traefik.web.protocol=http"
+      - "traefik.backend=traefik"
+      - "traefik.frontend.rule=Host:traefik.localhost"
+      - "traefik.port=8080"
   portainer:
     image: portainer/portainer
     container_name: portainer
@@ -34,13 +34,13 @@ services:
     ports:
       - "9000:9000"
     networks:
-      - web
+      - public
       - default
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
     labels:
       - "traefik.enable=true"
-      - "traefik.web.frontend.rule=Host:portainer.localhost"
-      - "traefik.web.port=9000"
-      - "traefik.web.protocol=http"
+      - "traefik.backend=portainer"
+      - "traefik.frontend.rule=Host:portainer.localhost"
+      - "traefik.port=9000"
