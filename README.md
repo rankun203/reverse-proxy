@@ -16,4 +16,4 @@ Then, in your docker app, append below labels:
       - "traefik.port=80"
 ```
 
-Then, edit `/etc/hosts`, map `<local.domain.tld>` to `127.0.0.1` and navigate to `<local.domain.tld>`.
+Then, edit `/etc/hosts`, map `<local.domain.tld>` to `127.0.0.1` and navigate to `<local.domain.tld>` (or use dnsmasq to map all .localhost domains to 127.0.0.1).
