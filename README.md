@@ -2,7 +2,7 @@
 
 ```bash
 docker network create public
-docker-compose up -d
+docker-compose up -d traefik
 ```
 
 Then, in your docker app, append below labels:
