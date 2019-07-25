@@ -1,7 +1,7 @@
 # Dev Traefik proxy for local development
 
 ```bash
-docker network create web
+docker network create public
 docker-compose up -d
 ```
 
@@ -10,7 +10,7 @@ Then, in your docker app, append below labels:
 ```yml
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=web"
+      - "traefik.docker.network=public"
       - "traefik.backend=<service_name>"
       - "traefik.frontend.rule=Host:<local.domain.tld>"
       - "traefik.port=80"
