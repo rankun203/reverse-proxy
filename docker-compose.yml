@@ -10,7 +10,6 @@ services:
     image: traefik:alpine
     container_name: traefik
     restart: always
-    # public.lodestreams.com
     ports:
       - "80:80"
       - "443:443"
