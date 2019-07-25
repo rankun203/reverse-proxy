@@ -47,7 +47,7 @@ defaultEntryPoints = ["http", "https"]
   [entryPoints.traefik]
   address = ":8080"
     # [entryPoints.traefik.auth.basic]
-    # users = ["lodestream:$apr1$xxxxx"]
+    # users = ["user:$apr1$xxxxx"]
 ################################################################
 # Traefik logs configuration
 ################################################################
