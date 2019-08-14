@@ -46,6 +46,7 @@ defaultEntryPoints = ["http", "https"]
   # https://github.com/containous/traefik/issues/2833
   [entryPoints.traefik]
   address = ":8080"
+    # htpasswd -nb user pass
     # [entryPoints.traefik.auth.basic]
     # users = ["user:$apr1$xxxxx"]
 ################################################################
