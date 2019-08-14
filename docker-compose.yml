@@ -23,7 +23,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.backend=traefik"
-      - "traefik.frontend.rule=Host:traefik.localhost"
+      - "traefik.frontend.rule=Host:traefik.localtest.me"
       - "traefik.port=8080"
   portainer:
     image: portainer/portainer
@@ -41,5 +41,5 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.backend=portainer"
-      - "traefik.frontend.rule=Host:portainer.localhost"
+      - "traefik.frontend.rule=Host:portainer.localtest.me"
       - "traefik.port=9000"
