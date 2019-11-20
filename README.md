@@ -1,6 +1,9 @@
-# Reverse Traefik proxy for local development & lightweight deployment
+# Reverse Proxy
+
+Reverse Traefik proxy for local development & lightweight deployment
 
 ```bash
+git clone https://github.com/rankun203/reverse-proxy.git
 docker network create public
 docker-compose up -d traefik
 ```
