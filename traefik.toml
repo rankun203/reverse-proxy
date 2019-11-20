@@ -208,11 +208,12 @@ network = "public"
 # domain = "web.xx"
 
 # Let's Encrypted
-[acme]
-email = "acme@rankun.net"
-storage = "/etc/traefik/acme.json"
-entryPoint = "https"
-onHostRule = true
-
-[acme.httpChallenge]
-entryPoint = "http"
+# 
+# [acme]
+# email = "acme@rankun.net"
+# storage = "/etc/traefik/acme.json"
+# entryPoint = "https"
+# onHostRule = true
+# 
+# [acme.httpChallenge]
+# entryPoint = "http"
