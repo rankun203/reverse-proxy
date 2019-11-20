@@ -1,4 +1,4 @@
-# Dev Traefik proxy for local development
+# Reverse Traefik proxy for local development & lightweight deployment
 
 ```bash
 docker network create public
@@ -9,11 +9,27 @@ Then, in your docker app, append below labels:
 
 ```yml
     labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=public"
-      - "traefik.backend=<service_name>"
-      - "traefik.frontend.rule=Host:<local.domain.tld>"
-      - "traefik.port=80"
+      - 'traefik.enable=true'
+      - 'traefik.backend=<service-name>'
+      - 'traefik.frontend.rule=Host:<local.domain.tld>'
+      - 'traefik.port=80'
 ```
 
-Then, edit `/etc/hosts`, map `<local.domain.tld>` to `127.0.0.1` and navigate to `<local.domain.tld>` (or use dnsmasq to map all `.localhost` domains to `127.0.0.1`).
+## Local Development
+
+Just use `*.localtest.me`, for example `chat.localtest.me`, `proj.localtest.me`, etc, they all pointing to `127.0.0.1`.
+
+## Deployment
+
+In order to get https working, uncomment these lines of code in traefik.toml (and use a proper email):
+
+```toml
+# [acme]
+# email = "acme@rankun.net"
+# storage = "/etc/traefik/acme.json"
+# entryPoint = "https"
+# onHostRule = true
+# 
+# [acme.httpChallenge]
+# entryPoint = "http"
+```
