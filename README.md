@@ -36,3 +36,10 @@ In order to get https working, uncomment these lines of code in traefik.toml (an
 # [acme.httpChallenge]
 # entryPoint = "http"
 ```
+
+If you want to automatically redirect http traffic to https, uncomment these lines as well:
+
+```toml
+    # [entryPoints.http.redirect]
+    # entryPoint = "https"
+```
