@@ -10,9 +10,12 @@ docker network create public
 docker-compose up -d traefik
 ```
 
-Then, in your docker compose service, append below labels:
+Then, in your docker compose service, join public network and append below labels:
 
 ```yml
+    networks:
+      - public
+      - default
     labels:
       - 'traefik.enable=true'
       - 'traefik.backend=<service-name>'
