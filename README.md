@@ -10,7 +10,7 @@ docker network create public
 docker-compose up -d traefik
 ```
 
-Then, in your docker compose service, join public network and append below labels:
+Then, in your docker compose service, join the public network and append below labels:
 
 ```yml
     networks:
