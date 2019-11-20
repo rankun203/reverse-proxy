@@ -8,7 +8,7 @@ docker network create public
 docker-compose up -d traefik
 ```
 
-Then, in your docker app, append below labels:
+Then, in your docker compose service, append below labels:
 
 ```yml
     labels:
