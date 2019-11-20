@@ -2,6 +2,8 @@
 
 Reverse Traefik proxy for local development & lightweight deployment
 
+## Usage
+
 ```bash
 git clone https://github.com/rankun203/reverse-proxy.git
 docker network create public
@@ -17,6 +19,8 @@ Then, in your docker compose service, append below labels:
       - 'traefik.frontend.rule=Host:<local.domain.tld>'
       - 'traefik.port=80'
 ```
+
+And then navigate to <local.domain.tld>. For more specific settings, read on...
 
 ## Local Development
 
