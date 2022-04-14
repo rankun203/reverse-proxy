@@ -7,7 +7,7 @@ networks:
     external: true
 services:
   traefik:
-    image: traefik:v2.3
+    image: traefik:v1.7.19-alpine
     container_name: traefik
     restart: always
     ports:
