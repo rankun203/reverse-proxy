@@ -38,8 +38,8 @@ defaultEntryPoints = ["http", "https"]
 [entryPoints]
   [entryPoints.http]
   address = ":80"
-    # [entryPoints.http.redirect]
-    # entryPoint = "https"
+    [entryPoints.http.redirect]
+    entryPoint = "https"
   [entryPoints.https]
   address = ":443"
   compress = true
@@ -181,12 +181,12 @@ watch = true
 # Optional
 # Default: true
 #
-# exposedByDefault = true
+exposedByDefault = false
 
 # Use the IP address from the binded port instead of the inner network one.
 #
-# In case no IP address is attached to the binded port (or in case 
-# there is no bind), the inner network one will be used as a fallback.     
+# In case no IP address is attached to the binded port (or in case
+# there is no bind), the inner network one will be used as a fallback.
 #
 # Optional
 # Default: false
@@ -209,12 +209,12 @@ network = "public"
 # domain = "web.xx"
 
 # Let's Encrypted
-# 
-# [acme]
-# email = "acme@rankun.net"
-# storage = "/etc/traefik/acme.json"
-# entryPoint = "https"
-# onHostRule = true
-# 
-# [acme.httpChallenge]
-# entryPoint = "http"
+#
+[acme]
+email = "acme-deg@rankun.net"
+storage = "/etc/traefik/acme.json"
+entryPoint = "https"
+onHostRule = true
+
+[acme.httpChallenge]
+entryPoint = "http"
