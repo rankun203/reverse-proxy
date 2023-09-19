@@ -20,7 +20,7 @@ docker run -d \
   traefik \
   --providers.docker \
   --providers.docker.exposedbydefault=false \
-  --providers.docker.network=public
+  --providers.docker.network=public \
   --entrypoints.web.address=:80 \
   --entrypoints.websecure.address=:443 \
   --certificatesresolvers.myresolver.acme.email=spsacme@rankun.net \
