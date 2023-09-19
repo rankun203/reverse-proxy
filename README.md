@@ -2,7 +2,7 @@
 
 Reverse Traefik proxy for local development & lightweight deployment
 
-## 1. Run Traefik
+### 1. Run Traefik
 
 ```bash
 touch acme.json
@@ -27,7 +27,7 @@ docker run -d \
   --accesslog=true
 ```
 
-## 2. Integrate your service
+### 2. Integrate your service
 
 Use necessary labels:
 
