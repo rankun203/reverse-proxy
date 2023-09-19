@@ -2,51 +2,53 @@
 
 Reverse Traefik proxy for local development & lightweight deployment
 
-## Usage
+## 1. Run Traefik
 
 ```bash
-git clone https://github.com/rankun203/reverse-proxy.git
+touch acme.json
+
 docker network create public
-docker-compose up -d traefik
+
+docker run -d \
+  --name=traefik \
+  --network=public \
+  -p 80:80 \
+  -p 443:443 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v $PWD/acme.json:/acme.json \
+  traefik \
+  --providers.docker \
+  --providers.docker.exposedbydefault=false \
+  --entrypoints.web.address=:80 \
+  --entrypoints.websecure.address=:443 \
+  --certificatesresolvers.myresolver.acme.email=spsacme@rankun.net \
+  --certificatesresolvers.myresolver.acme.storage=/acme.json \
+  --certificatesresolvers.myresolver.acme.tlschallenge=true \
+  --accesslog=true
 ```
 
-Then, in your docker compose service, join the public network and append below labels:
+## 2. Integrate your service
 
-```yml
+Use necessary labels:
+
+```yaml
+version: "3.8"
+networks:
+  # docker network create public
+  public:
+    external: true
+services:
+  api:
     networks:
       - public
       - default
     labels:
-      - 'traefik.enable=true'
-      - 'traefik.backend=<service-name>'
-      - 'traefik.frontend.rule=Host:<local.domain.tld>'
-      - 'traefik.port=80'
+      - "traefik.enable=true"
+      - 'traefik.http.routers.customservice.rule=Host("api.2fools.app")'
+      - 'traefik.http.services.customservice.loadbalancer.server.port=8000'
+      - "traefik.http.routers.customservice.tls.certresolver=myresolver"
 ```
-
-And then navigate to <local.domain.tld>. For more specific settings, read on...
 
 ## Local Development
 
 Just use `*.localtest.me`, for example `chat.localtest.me`, `proj.localtest.me`, etc, they all pointing to `127.0.0.1`.
-
-## Deployment
-
-In order to get https working, uncomment these lines of code in traefik.toml (and use a proper email):
-
-```toml
-# [acme]
-# email = "acme@rankun.net"
-# storage = "/etc/traefik/acme.json"
-# entryPoint = "https"
-# onHostRule = true
-# 
-# [acme.httpChallenge]
-# entryPoint = "http"
-```
-
-If you want to automatically redirect http traffic to https, uncomment these lines as well:
-
-```toml
-    # [entryPoints.http.redirect]
-    # entryPoint = "https"
-```
