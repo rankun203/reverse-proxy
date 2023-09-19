@@ -29,6 +29,10 @@ docker run -d \
   --accesslog=true
 ```
 
+Notes:
+
+1. `--providers.docker.network=public` is important, when target service is reachable through multiple networks, Traefik needs to know which one to send request.
+
 ### 2. Integrate your service
 
 Use necessary labels:
