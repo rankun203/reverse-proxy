@@ -6,6 +6,7 @@ Reverse Traefik proxy for local development & lightweight deployment
 
 ```bash
 touch acme.json
+chmod 600 acme.json
 
 docker network create public
 
