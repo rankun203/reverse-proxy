@@ -35,7 +35,9 @@ Notes:
 
 ### 2. Integrate your service
 
-Use necessary labels:
+#### Using Docker compose
+
+This config exposes the api service to public through https://api.2fools.app
 
 ```yaml
 version: "3.8"
@@ -53,6 +55,21 @@ services:
       - 'traefik.http.routers.customservice.rule=Host("api.2fools.app")'
       - 'traefik.http.services.customservice.loadbalancer.server.port=8000'
       - "traefik.http.routers.customservice.tls.certresolver=myresolver"
+```
+
+#### Using Docker run
+
+This command starts a Caddy server and serve files from current folder to public through https://service.sps.mindfine.com
+
+```bash
+docker run -d --name caddy_server --restart always \
+    -v $(pwd):/usr/share/caddy \
+    --network public \
+    --label "traefik.enable=true" \
+    --label 'traefik.http.routers.customservice.rule=Host(`service.sps.mindfine.com`)' \
+    --label 'traefik.http.services.customservice.loadbalancer.server.port=80' \
+    --label "traefik.http.routers.customservice.tls.certresolver=myresolver" \
+    caddy
 ```
 
 ## Local Development
