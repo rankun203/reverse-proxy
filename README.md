@@ -55,6 +55,10 @@ services:
       - 'traefik.http.routers.customservice.rule=Host("api.2fools.app")'
       - 'traefik.http.services.customservice.loadbalancer.server.port=8000'
       - "traefik.http.routers.customservice.tls.certresolver=myresolver"
+      # Optional basic auth, generated using: htpasswd -nb user pass
+      - "traefik.http.middlewares.rq-dashboard-auth.basicauth.users=${HTPASSWD_NB_USER_PASS}"
+      - "traefik.http.routers.rq-dashboard.middlewares=rq-dashboard-auth"
+
 ```
 
 #### Using Docker run
