@@ -13,6 +13,7 @@ docker network create public
 docker run -d \
   --name=traefik \
   --network=public \
+  --restart=always \
   -p 80:80 \
   -p 443:443 \
   -v /var/run/docker.sock:/var/run/docker.sock \
