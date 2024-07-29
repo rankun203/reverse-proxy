@@ -34,6 +34,38 @@ Notes:
 
 1. `--providers.docker.network=public` is important, when target service is reachable through multiple networks, Traefik needs to know which one to send request.
 
+Or with dashboard
+
+```bash
+sudo docker run -d \
+  --name=traefik \
+  --network=public \
+  --restart=always \
+  -p 80:80 \
+  -p 443:443 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v $PWD/acme.json:/acme.json \
+  --label 'traefik.enable=true' \
+  --label 'traefik.http.routers.mydashboard.rule=Host("traefik.website.com")' \
+  --label 'traefik.http.routers.mydashboard.tls.certresolver=myresolver' \
+  --label 'traefik.http.routers.mydashboard.service=api@internal' \
+  --label 'traefik.http.middlewares.dashauth.basicauth.users=user:$apr1$sdsdf' \ # generated using htpasswd -nb user pass
+  --label 'traefik.http.routers.mydashboard.middlewares=dashauth' \
+  traefik \
+  --providers.docker \
+  --providers.docker.exposedbydefault=false \
+  --providers.docker.network=public \
+  --entrypoints.web.address=:80 \
+  --entrypoints.websecure.address=:443 \
+  --certificatesresolvers.myresolver.acme.email=degacme@rankun.net \
+  --certificatesresolvers.myresolver.acme.storage=/acme.json \
+  --certificatesresolvers.myresolver.acme.tlschallenge=true \
+  --entrypoints.web.http.redirections.entrypoint.to=websecure \
+  --entryPoints.web.http.redirections.entrypoint.scheme=https \
+  --api.dashboard=true \
+  --accesslog=true
+```
+
 ### 2. Integrate your service
 
 #### Using Docker compose
