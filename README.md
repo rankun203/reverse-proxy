@@ -45,6 +45,7 @@ sudo docker run -d \
   -p 443:443 \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v $PWD/acme.json:/acme.json \
+  -v /var/log/traefik/:/var/log/traefik/ \
   --label 'traefik.enable=true' \
   --label 'traefik.http.routers.mydashboard.rule=Host("traefik.website.com")' \
   --label 'traefik.http.routers.mydashboard.tls.certresolver=myresolver' \
@@ -63,7 +64,7 @@ sudo docker run -d \
   --entrypoints.web.http.redirections.entrypoint.to=websecure \
   --entryPoints.web.http.redirections.entrypoint.scheme=https \
   --api.dashboard=true \
-  --accesslog=true
+  --accesslog.filePath=/var/log/traefik/access.log
 ```
 
 ### 2. Integrate your service
